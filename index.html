@@ -152,27 +152,46 @@
           <div id="js-content" class="content-ll">
             
   
-    <article id="post-test2" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-hexo博客搭建方法" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2022/08/07/test2/">test2</a>
-    </h1>
-  
-
-        
-        <a href="/2022/08/07/test2/" class="archive-article-date">
-  	<time datetime="2022-08-07T11:22:56.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-08-07</time>
-</a>
-        
-      </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        
+        <h1 id="任务描述"><a href="#任务描述" class="headerlink" title="任务描述"></a>任务描述</h1><p>搭建一个个人博客，可以通过github提供的域名为其他网络用户访问</p>
+<h1 id="预备知识和环境"><a href="#预备知识和环境" class="headerlink" title="预备知识和环境"></a>预备知识和环境</h1><p>windows命令行（cmd）运行机制和基本操作</p>
+<p>windows环境变量</p>
+<p>git和github账户</p>
+<p>node.js (包括npm)</p>
+<h1 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h1><p>我们选用JS的hexo框架，安装之后，用hexo初始化博客并可以通过localhost进行本地访问，同时可以将博客文件上传至github，并通过github提供的域名进行网络访问</p>
+<h1 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h1><h2 id="安装hexo框架"><a href="#安装hexo框架" class="headerlink" title="安装hexo框架"></a>安装hexo框架</h2><p>搭建博客可以使用的框架很多，我们选用hexo，是一个JS框架，因此选择使用npm安装</p>
+<p><code>npm install -g hexo-cli</code></p>
+<p>安装完成后hexo也会被添加进环境变量，可以在命令行直接使用</p>
+<h2 id="本地部署"><a href="#本地部署" class="headerlink" title="本地部署"></a>本地部署</h2><h3 id="初始化博客目录"><a href="#初始化博客目录" class="headerlink" title="初始化博客目录"></a>初始化博客目录</h3><p>安装完成后，我们需要找到一个存放博客内容的文件夹，并将命令行定位在该处</p>
+<p>之后执行命令</p>
+<p><code>hexo init</code></p>
+<p>成功将当前目录填充成为一个hexo框架下的博客目录</p>
+<p>并且在./source/_posts/下生成一个hello world文件，是博客初始内容</p>
+<h3 id="新建博客文件"><a href="#新建博客文件" class="headerlink" title="新建博客文件"></a>新建博客文件</h3><p><code>hexo n &quot;filename&quot;</code></p>
+<p>这个命令会在./source/_posts/下新建一个md文件，用户用于存放想要新添加进博客的内容</p>
+<h3 id="转化html文件"><a href="#转化html文件" class="headerlink" title="转化html文件"></a>转化html文件</h3><p><code>hexo g</code></p>
+<p>将./source/_posts/下md文件转化为html文件放入./public文件夹下</p>
+<h2 id="开启本地离线访问"><a href="#开启本地离线访问" class="headerlink" title="开启本地离线访问"></a>开启本地离线访问</h2><p>再执行命令</p>
+<p><code>hexo s</code></p>
+<p>表示将当前转化后的博客文件（./public下文件）（hexo提供了一个hello world文件）放到localhost:4000端口，用户通过浏览器输入以上端口名即可访问</p>
+<p>但注意这是一个在线访问，即该命令一直处于执行状态，关闭cmd或者停止命令都无法继续访问，因此本地访问只是一个调试工具，当内容确认完成后需要将其部署到网络中才有意义</p>
+<h2 id="开启远程在线访问"><a href="#开启远程在线访问" class="headerlink" title="开启远程在线访问"></a>开启远程在线访问</h2><h3 id="建立github仓库"><a href="#建立github仓库" class="headerlink" title="建立github仓库"></a>建立github仓库</h3><p>首先来到github账户下，新建一个仓库，且仓库名必须为：github用户名.github.io</p>
+<h3 id="安装开发工具"><a href="#安装开发工具" class="headerlink" title="安装开发工具"></a>安装开发工具</h3><p><code>npm install --save hexo-deployer-git</code></p>
+<h3 id="修改博客配置文件"><a href="#修改博客配置文件" class="headerlink" title="修改博客配置文件"></a>修改博客配置文件</h3><p>来到博客目录下，打开_config.yml文件，找到其中的deploy项，并添加以下代码：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">deploy:</span><br><span class="line">  type: &#x27;git&#x27;</span><br><span class="line">  repo: &#x27;仓库url&#x27;</span><br><span class="line">  branch: &#x27;master&#x27;</span><br></pre></td></tr></table></figure>
+
+<h3 id="将文件推送至仓库中"><a href="#将文件推送至仓库中" class="headerlink" title="将文件推送至仓库中"></a>将文件推送至仓库中</h3><p><code>hexo d</code></p>
+<h3 id="在线访问博客"><a href="#在线访问博客" class="headerlink" title="在线访问博客"></a>在线访问博客</h3><p>在浏览器中输入github用户名.github.io即可在线访问该博客</p>
+<h1 id="修改主题"><a href="#修改主题" class="headerlink" title="修改主题"></a>修改主题</h1><p>首先需要下载主题文件</p>
+<p><code>git clone url ./themes/theme</code></p>
+<p>指定下载url到主题存放位置</p>
+<p>然后在配置文件_config.yml中找到主题，修改其为下载的主题</p>
+<p>注意更换主题后需要重新生成</p>
+
       
 
       
@@ -184,69 +203,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2022/08/07/test2/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-hello-world-1" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2022/08/07/hello-world-1/">hello world</a>
-    </h1>
-  
-
-        
-        <a href="/2022/08/07/hello-world-1/" class="archive-article-date">
-  	<time datetime="2022-08-07T02:18:30.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-08-07</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2022/08/07/hello-world-1/">展开全文 >></a>
+          <a class="article-more-a" href="/2022/08/07/hexo%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA%E6%96%B9%E6%B3%95/">展开全文 >></a>
         </p>
       
 
